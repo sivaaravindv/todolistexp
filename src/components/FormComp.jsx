@@ -1,12 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Alert from './Alert';
 import List from './List';
+
+const getLocalStorage = () => {
+  let list = localStorage.getItem('list');
+  if (list) {
+    return (list = JSON.parse(localStorage.getItem('list')));
+  } else {
+    return [];
+  }
+};
+
 const FormComp = () => {
   const [name, setName] = useState('');
-  const [list, setList] = useState([]);
+  const [list, setList] = useState(getLocalStorage());
   const [isEditing, setIdEditing] = useState(false);
   const [editID, setEditID] = useState(null);
   const [alert, setAlert] = useState({ show: false, msg: '', type: '' });
+
+  useEffect(() => {
+    localStorage.setItem('list', JSON.stringify(list));
+  }, [list]);
 
   const handleSubmit = (e) => {
     e.preventDefault();

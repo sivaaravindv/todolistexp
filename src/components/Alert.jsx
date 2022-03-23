@@ -8,6 +8,7 @@ const Alert = ({ type, msg, removeAlert, list }) => {
   useEffect(() => {
     return () => clearTimeout(timeout);
   }, [list]);
+  
   return <p>{msg}</p>;
 };
 
